@@ -10,7 +10,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 
 
-const Editor = () => {
+const Home = () => {
     const imgRef = useRef(null);
     const handleImage = (e) => {
         const file = e.target.files[0];
@@ -87,4 +87,4 @@ const Editor = () => {
     )
 }
 
-export default Editor
+export default Home

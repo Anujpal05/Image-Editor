@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { FaImage } from "react-icons/fa6";
 import { FaChevronDown } from "react-icons/fa";
 import { LuImageUpscale } from "react-icons/lu";
@@ -8,14 +8,34 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+import { ImageContext } from '../context/ImageContext';
 
 
 const Home = () => {
     const imgRef = useRef(null);
+    const navigate = useNavigate();
+    const { setimage } = useContext(ImageContext);
+
     const handleImage = (e) => {
         const file = e.target.files[0];
-        console.log(file)
+        const reader = new FileReader();
+
+        reader.onloadend = () => {
+            setimage(reader.result);
+            navigate('/editor')
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     }
+
+    useEffect(() => {
+        setimage(null);
+    }, [])
+
+
     return (
         <div className=' py-4 '>
             <h1 className=' text-3xl font-semibold pb-3 text-center'>Image Editor</h1>
@@ -69,14 +89,14 @@ const Home = () => {
             </div>
 
 
-            <div className=' flex justify-center py-32 '>
+            <div className=' flex lg:flex-row flex-col items-center justify-center lg:py-32 py-20 '>
                 <div className='  flex justify-center items-center gap-7 bg-gray-900 w-fit p-10 py-20  font-thin text-gray-400 rounded-md'>
-                    <div className=' text-9xl'><FaImage /></div>
+                    <div className=' text-6xl lg:text-9xl'><FaImage /></div>
                     <div className='  text-3xl '><FaArrowRight /></div>
-                    <div className=' text-9xl'><LuImageUpscale /></div>
+                    <div className=' text-6xl lg:text-9xl'><LuImageUpscale /></div>
                 </div>
 
-                <div className=' flex flex-col justify-center px-10 font-semibold text-gray-400'>
+                <div className=' flex flex-col justify-center px-10 font-semibold text-gray-400 py-10 lg:py-0'>
                     <h2 className=' text-2xl pb-6 text-gray-400'>How to Edit an Image?</h2>
                     <h4>1. Click on the "Select Image" button to select an image.</h4>
                     <h4>2. Edit your image freely as you want.</h4>

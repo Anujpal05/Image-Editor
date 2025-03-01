@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { PiImages } from "react-icons/pi";
 import { RiCropLine } from "react-icons/ri";
 import { MdOutlineRotateRight } from "react-icons/md";
 import Resize from './Resize';
+import { ImageContext } from '../context/ImageContext';
 
 
 const Sidebar = () => {
+    const { image } = useContext(ImageContext);
+
     return (
         <div className=''>
             <div className=' flex justify-around text-semibold text-xl py-2'>
